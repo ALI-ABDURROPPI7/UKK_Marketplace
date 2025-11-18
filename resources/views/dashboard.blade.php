@@ -67,21 +67,7 @@
     <div class="container">
         <h2>Selamat datang, <strong>{{ auth()->user()->name }}</strong>!</h2>
 
-        <div class="role-box">
-            Role Anda: <strong>{{ auth()->user()->role }}</strong>
-        </div>
 
-        <div class="menu">
-            @if(auth()->user()->role == 'admin')
-                <a href="/toko">Kelola Toko</a>
-                <a href="/produk">Lihat Semua Produk</a>
-            @else
-                <a href="/produk/create">Tambah Produk</a>
-                <a href="/produk">Produk Saya</a>
-            @endif
-
-            <a href="{{ route('logout') }}">Logout</a>
-        </div>
     </div>
 
 </body>
