@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Admin Panel')</title>
 
     <!-- FONT AWESOME -->
@@ -18,6 +17,7 @@
             background: #f2f8ff;
         }
 
+        /* SIDEBAR */
         .sidebar {
             width: 250px;
             height: 100vh;
@@ -28,6 +28,12 @@
             top: 0;
             padding: 20px;
             box-sizing: border-box;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Sidebar hidden (mobile mode) */
+        .sidebar.closed {
+            transform: translateX(-260px);
         }
 
         .sidebar h2 {
@@ -36,7 +42,8 @@
             text-align: center;
         }
 
-        .sidebar a, .sidebar form button {
+        .sidebar a,
+        .sidebar form button {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -46,12 +53,12 @@
             border-radius: 6px;
             margin-bottom: 10px;
             font-size: 16px;
-            transition: background 0.3s;
             background: transparent;
             border: none;
             width: 100%;
             text-align: left;
             cursor: pointer;
+            transition: background 0.2s ease;
         }
 
         .sidebar a:hover,
@@ -59,56 +66,36 @@
             background: #1565c0;
         }
 
-        /* Tombol logout */
-        .sidebar .logout-btn {
+        /* Logout */
+        .logout-btn {
             background: #d32f2f;
         }
 
-        .sidebar .logout-btn:hover {
+        .logout-btn:hover {
             background: #b71c1c;
         }
 
+        /* MAIN CONTENT */
         .main-content {
             margin-left: 250px;
-            padding: 40px;
-            min-height: 100vh;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
         }
 
-        .content-wrapper {
-            width: 100%;
-            max-width: 1200px;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        /* Hamburger button */
+        .menu-btn {
+            display: none;
+            font-size: 24px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 999;
         }
-    </style>
-</head>
-<body>
 
-<div class="sidebar">
-    <h2>Admin Panel</h2>
-
-    <a href="/admin/dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-    <a href="/toko"><i class="fa-solid fa-store"></i> Toko</a>
-    <a href="/produk"><i class="fa-solid fa-box"></i> Produk</a>
-    <a href="/User"><i class="fa-solid fa-user"></i> User</a>
-    <a href="/Kategori"><i class="fa-solid fa-layer-group"></i> Kategori</a>
-
-    <!-- LOGOUT POST -->
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="logout-btn">
-            <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </button>
-    </form>
-</div>
-
-<div class="main-content">
-    <div class="content-wrapper">
-        @yield('content')
-    </div>
-</div>
-
-</body>
-</html>
+        /

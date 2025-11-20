@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'Admin Panel')</title>
+    <title>@yield('title', 'Member Panel')</title>
 
-    <!-- FONT AWESOME -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -59,12 +58,11 @@
             background: #1565c0;
         }
 
-        /* Tombol logout */
-        .sidebar .logout-btn {
+        .logout-btn {
             background: #d32f2f;
         }
 
-        .sidebar .logout-btn:hover {
+        .logout-btn:hover {
             background: #b71c1c;
         }
 
@@ -87,16 +85,24 @@
 <body>
 
 <div class="sidebar">
-    <h2>Admin Panel</h2>
+    <h2>Member Panel</h2>
 
-    <a href="/admin/dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-    <a href="/toko"><i class="fa-solid fa-store"></i> Toko</a>
-    <a href="/produk"><i class="fa-solid fa-box"></i> Produk</a>
-    <a href="/User"><i class="fa-solid fa-user"></i> User</a>
-    <a href="/Kategori"><i class="fa-solid fa-layer-group"></i> Kategori</a>
+    <a href="{{ route('member.dashboard') }}">
+        <i class="fa-solid fa-gauge"></i> Dashboard
+    </a>
 
-    <!-- LOGOUT POST -->
-    <form action="{{ route('logout') }}" method="POST">
+
+    <a href="/member/produk">
+        <i class="fa-solid fa-box"></i> Produk Saya
+    </a>
+
+    <a href="/member/kategori">
+        <i class="fa-solid fa-layer-group"></i> Kategori
+    </a>
+
+
+
+    <form action="{{ route('member.logout') }}" method="POST">
         @csrf
         <button type="submit" class="logout-btn">
             <i class="fa-solid fa-right-from-bracket"></i> Logout

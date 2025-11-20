@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Jual Beli Sekolah</title>
+    <title>Login - Marketplace Sekolah</title>
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet"
@@ -22,7 +22,7 @@
 
         .login-box {
             background: #fff;
-            width: 330px;
+            width: 340px;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0px 5px 20px rgba(0,0,0,0.25);
@@ -79,8 +79,8 @@
             font-size: 16px;
             border-radius: 6px;
             cursor: pointer;
+            margin-top: 10px;
             transition: 0.2s;
-            margin-top: 5px;
         }
 
         button:hover {

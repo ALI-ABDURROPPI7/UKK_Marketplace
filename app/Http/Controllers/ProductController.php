@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\kategori;
 use App\Models\Product;
+use App\Models\Toko;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,7 +25,10 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('produk.create');
+        $kategori = kategori::all();
+    $toko = Toko::all(); // ambil semua toko admin
+
+    return view('member.produk.create', compact('kategori', 'toko'));
     }
 
     /**

@@ -12,24 +12,35 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required'
-        ]);
+public function login(Request $request)
+{
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required',
+    ]);
 
-        $credentials = $request->only('email', 'password');
+    $credentials = $request->only('username', 'password');
 
-        if (Auth::attempt($credentials)) {
-            // regenerasi session biar aman
-            $request->session()->regenerate();
+    if (Auth::attempt($credentials)) {
 
-            return redirect()->route('dashboard');
+        $request->session()->regenerate();
+
+        // CEK ROLE
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('admin.dashboard');
         }
 
-        return back()->with('error', 'Email atau password salah');
+        if (Auth::user()->role === 'member') {
+            return redirect()->route('member.dashboard');
+        }
+
+        // Jika role tidak dikenali
+        return back()->with('error', 'Akun tidak memiliki role yang valid');
     }
+
+    return back()->with('error', 'username atau password salah');
+}
+
 
     public function logout()
     {

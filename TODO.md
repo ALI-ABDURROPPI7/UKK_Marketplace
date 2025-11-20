@@ -1,9 +1,9 @@
-# TODO: Create Admin Sidebar
+# TODO: Connect Login to Admin Dashboard
 
 ## Tasks
-- [x] Create sidebar.blade.php with navigation items: Dashboard, Kelola Toko, Lihat Semua Produk, Logout
-- [x] Style the sidebar similarly to dashboard.blade.php (blue theme, inline CSS)
-- [x] Use Blade syntax for links and authentication checks
-- [x] Center the layout content in the main area
-- [x] Update admin dashboard content to be appropriate
-- [x] Verify the sidebar can be included in admin views (server started, but browser tool disabled)
+- [ ] Update User model to include 'role' in fillable attributes
+- [ ] Fix DatabaseSeeder to properly create admin user with role
+- [ ] Implement login method in LoginController with authentication and role-based redirection
+- [ ] Update routes to name the post login route as 'login.post'
+- [ ] Add admin middleware to protect admin routes
+- [ ] Test the login flow to admin dashboard

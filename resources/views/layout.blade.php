@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Admin Panel')</title>
+
+    <!-- BOOTSTRAP 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         body {
@@ -36,7 +40,7 @@
             text-align: center;
         }
 
-        .sidebar a, .sidebar form button {
+        .sidebar a {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -47,24 +51,18 @@
             margin-bottom: 10px;
             font-size: 16px;
             transition: background 0.3s;
-            background: transparent;
-            border: none;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
         }
 
-        .sidebar a:hover,
-        .sidebar form button:hover {
+        .sidebar a:hover {
             background: #1565c0;
         }
 
-        /* Tombol logout */
-        .sidebar .logout-btn {
+        .sidebar .logout {
+            margin-top: 50px;
             background: #d32f2f;
         }
 
-        .sidebar .logout-btn:hover {
+        .sidebar .logout:hover {
             background: #b71c1c;
         }
 
@@ -76,7 +74,6 @@
 
         .content-wrapper {
             width: 100%;
-            max-width: 1200px;
             background: white;
             padding: 25px;
             border-radius: 10px;
@@ -84,31 +81,19 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="sidebar">
-    <h2>Admin Panel</h2>
+    @include('admin.sidebar')
 
-    <a href="/admin/dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-    <a href="/toko"><i class="fa-solid fa-store"></i> Toko</a>
-    <a href="/produk"><i class="fa-solid fa-box"></i> Produk</a>
-    <a href="/User"><i class="fa-solid fa-user"></i> User</a>
-    <a href="/Kategori"><i class="fa-solid fa-layer-group"></i> Kategori</a>
-
-    <!-- LOGOUT POST -->
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="logout-btn">
-            <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </button>
-    </form>
-</div>
-
-<div class="main-content">
-    <div class="content-wrapper">
-        @yield('content')
+    <div class="main-content">
+        <div class="content-wrapper">
+            @yield('content')
+        </div>
     </div>
-</div>
+
+    <!-- BOOTSTRAP 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

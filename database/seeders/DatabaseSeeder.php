@@ -2,29 +2,31 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Member;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
-class AdminSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
+    /**
+     * Seed the application's database.
+     */
     public function run(): void
     {
-    //     $this->call([
-    //     AdminSeeder::class,
-    // ]);
-    //     DB::table('users')->insert([
-    //         'name' => 'Admin',
-    //         'email' => 'admin@gmail.com',
-    //         'role' => 'admin',
-    //         'password' => Hash::make('123456'),
-    //     ]);
+        User::create([
+            'name' => 'Admin User',
+            'username' => 'admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('12345'),
+            'role' => 'admin',
+        ]);
 
-    User::create([
-    'name' => 'Admin',
-    'role' => 'admin',
-      'password' => bcrypt('123456'),
-    ]);
+        User::create([
+            'name' => 'Member Test',
+            'username' => 'member',
+            'email' => 'member@gmail.com',
+            'password' => bcrypt('12345'),
+        ]);
     }
 }

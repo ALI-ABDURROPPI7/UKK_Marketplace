@@ -9,25 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up()
-{
-    Schema::create('tokos', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('kategoris', function (Blueprint $table) {
         $table->id();
-        $table->string('nama_toko');
-        $table->string('alamat');
-        $table->string('kontak')->nullable();
-        $table->text('deskripsi')->nullable();
-        $table->string('foto')->nullable();
+        $table->string('nama');
         $table->timestamps();
-    });
-}
-
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('toko');
+        Schema::dropIfExists('kategoris');
     }
 };

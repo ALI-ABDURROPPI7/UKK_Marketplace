@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Toko;
+use App\Models\Product;
+use App\Models\Kategori;
 
 class AdminController extends Controller
 {
-    //
-    public function index() {
-        return view('admin.dashboard');
+    public function dashboard()
+    {
+        $totalUser     = User::count();
+        $totalToko     = Toko::count();
+        $totalProduk   = Product::count();
+        $totalKategori = Kategori::count();
+
+        return view('admin.dashboard', compact(
+            'totalUser',
+            'totalToko',
+            'totalProduk',
+            'totalKategori'
+        ));
     }
 }

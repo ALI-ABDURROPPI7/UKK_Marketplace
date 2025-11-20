@@ -8,8 +8,14 @@ class Toko extends Model
 {
     //
 
-    protected $table = 'toko';
-    protected $fillable = ['nama_toko', 'user_id'];
+    protected $table = 'tokos';
+    protected $fillable = [
+    'nama_toko',
+    'alamat',
+    'kontak',
+    'deskripsi',
+    'foto'
+];
 
     public function user()
     {
