@@ -23,4 +23,11 @@ class AdminController extends Controller
             'totalKategori'
         ));
     }
+
+    public function create()
+{
+    $users = User::where('role', 'member')->get();
+    return view('admin.toko.create', compact('users'));
+}
+
 }

@@ -15,8 +15,9 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $produks = Product::all();
-        return view('produk.index', compact('products'));
+        $produks = Product::with(['kategori','toko'])->orderBy('id','DESC')->get();
+
+        return view('admin.produk.index', compact('produks'));
     }
 
     /**
@@ -38,19 +39,17 @@ class ProductController extends Controller
     {
         //
         $request->validate([
-            'name' => 'required',
-            'deskripsi' => 'required',
+            'nama' => 'required',
             'harga' => 'required|numeric',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $path = $request->file('gambar')?->store('prosuk', 'public');
+        $path = $request->file('gambar')?->store('produk', 'public');
 
         Product::create([
             'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
-            'gambar' => $path,
+            'foto' => $path,
         ]);
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan!');
@@ -86,7 +85,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
-        $product->delete();
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus!');
+       Product::where('id', $product)->delete();
+        return redirect()->route('admin.produk.index')->with('success','Produk berhasil dihapus!');
+    }
+    public function product(){
+        $data['produk']=Product::all();
+    return view('admin.produk.produk',$data);
     }
 }

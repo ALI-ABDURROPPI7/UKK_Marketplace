@@ -1,39 +1,84 @@
 @extends('admin.sidebar')
 
+@section('title','Dashboard')
+
 @section('content')
 
-<h2 style="font-size: 28px; font-weight: bold; margin-bottom: 25px; text-align:left;">
-    Dashboard
-</h2>
+<style>
 
-<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width:100%;">
+    .dash-title{
+        font-size:28px;
+        font-weight:700;
+        color:#1e40af;
+        margin-bottom:25px;
+    }
 
-    <!-- Total User -->
-    <div style="background:white; padding:25px; border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:left;">
-        <i class="fa-solid fa-user" style="font-size:32px; color:#1e88e5;"></i>
-        <h3 style="margin-top:15px; font-size:22px; font-weight:600;">{{ $totalUser }}</h3>
-        <p style="color:#555;">Pengguna</p>
+    .grid-box {
+        display:grid;
+        grid-template-columns: repeat(4,1fr);
+        gap:20px;
+        width:100%;
+    }
+
+    .card-stat{
+        background:white;
+        padding:25px;
+        border-radius:14px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.07);
+        transition:.25s;
+    }
+
+    .card-stat:hover{
+        transform:translateY(-4px);
+    }
+
+    .card-stat i{
+        font-size:36px;
+    }
+
+    .card-number{
+        margin-top:15px;
+        font-size:26px;
+        font-weight:800;
+        color:#1e293b;
+    }
+
+    .card-label{
+        margin-top:4px;
+        font-weight:600;
+        color:#475569;
+    }
+
+</style>
+
+
+
+<h2 class="dash-title">Dashboard</h2>
+
+<div class="grid-box">
+
+    <div class="card-stat">
+        <i class="fa-solid fa-user" style="color:#1e40af;"></i>
+        <div class="card-number">{{ $totalUser }}</div>
+        <div class="card-label">Pengguna</div>
     </div>
 
-    <!-- Total Toko -->
-    <div style="background:white; padding:25px; border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:left;">
-        <i class="fa-solid fa-store" style="font-size:32px; color:#43a047;"></i>
-        <h3 style="margin-top:15px; font-size:22px; font-weight:600;">{{ $totalToko }}</h3>
-        <p style="color:#555;">Total Toko</p>
+    <div class="card-stat">
+        <i class="fa-solid fa-store" style="color:#22c55e;"></i>
+        <div class="card-number">{{ $totalToko }}</div>
+        <div class="card-label">Total Toko</div>
     </div>
 
-    <!-- Total Produk -->
-    <div style="background:white; padding:25px; border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:left;">
-        <i class="fa-solid fa-box" style="font-size:32px; color:#e53935;"></i>
-        <h3 style="margin-top:15px; font-size:22px; font-weight:600;">{{ $totalProduk }}</h3>
-        <p style="color:#555;">Total Produk</p>
+    <div class="card-stat">
+        <i class="fa-solid fa-box" style="color:#ef4444;"></i>
+        <div class="card-number">{{ $totalProduk }}</div>
+        <div class="card-label">Total Produk</div>
     </div>
 
-    <!-- Total Kategori -->
-    <div style="background:white; padding:25px; border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.1); text-align:left;">
-        <i class="fa-solid fa-layer-group" style="font-size:32px; color:#fb8c00;"></i>
-        <h3 style="margin-top:15px; font-size:22px; font-weight:600;">{{ $totalKategori }}</h3>
-        <p style="color:#555;">Kategori</p>
+    <div class="card-stat">
+        <i class="fa-solid fa-layer-group" style="color:#f59e0b;"></i>
+        <div class="card-number">{{ $totalKategori }}</div>
+        <div class="card-label">Kategori</div>
     </div>
 
 </div>

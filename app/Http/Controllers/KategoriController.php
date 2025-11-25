@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\Product;
+use App\Models\Toko;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KategoriController extends Controller
 {
@@ -33,7 +36,8 @@ class KategoriController extends Controller
             'nama' => $request->nama
         ]);
 
-        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan');
+       return redirect('/kategori')->with('success', 'Kategori berhasil ditambah!');
+
     }
 
     // ADMIN — FORM EDIT
@@ -65,12 +69,28 @@ class KategoriController extends Controller
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus');
     }
 
-    // =======================
-    // MEMBER — HANYA LIHAT
-    // =======================
     public function memberIndex()
     {
         $kategori = Kategori::all();
         return view('member.kategori.index', compact('kategori'));
+    }
+    public function indexmember()
+    {
+        // ambil toko milik user
+        $toko = Toko::where('user_id', Auth::id())->first();
+
+        // hitung total produk / jika belum punya toko = 0
+        $totalProduk = $toko ? Product::where('toko_id', $toko->id)->count() : 0;
+
+        // ambil produk terbaru (max 5)
+        $produkTerbaru = $toko
+            ? Product::where('toko_id', $toko->id)->latest()->take(5)->get()
+            : [];
+
+        return view('member.index', compact(
+            'toko',
+            'totalProduk',
+            'produkTerbaru'
+        ));
     }
 }

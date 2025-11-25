@@ -6,16 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Toko extends Model
 {
-    //
-
     protected $table = 'tokos';
-    protected $fillable = [
-    'nama_toko',
-    'alamat',
-    'kontak',
-    'deskripsi',
-    'foto'
-];
+    protected $guarded = [];
 
     public function user()
     {

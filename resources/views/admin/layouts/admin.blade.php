@@ -98,4 +98,60 @@
             z-index: 999;
         }
 
-        /
+        @media(max-width:900px){
+            .menu-btn{
+                display:block;
+            }
+            .main-content{
+                margin-left:0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="menu-btn" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="sidebar" id="sidebar">
+        <h2>Admin Panel</h2>
+
+        <a href="/admin/dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+        <a href="/toko"><i class="fa-solid fa-store"></i> Toko</a>
+        <a href="/produk"><i class="fa-solid fa-store"></i> Produk</a>
+        <a href="/user"><i class="fa-solid fa-user"></i> User</a>
+        <a href="/kategori"><i class="fa-solid fa-layer-group"></i> Kategori</a>
+
+
+    </div>
+
+
+    <div class="main-content">
+
+        {{-- ALERT SUCCESS --}}
+        @if(session('success'))
+            <div style="
+                background:#4caf50;
+                color:white;
+                padding:12px;
+                border-radius:6px;
+                margin-bottom:15px;
+                font-weight:bold;
+                ">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @yield('content')
+
+    </div>
+
+    <script>
+        function toggleMenu(){
+            document.getElementById('sidebar').classList.toggle('closed')
+        }
+    </script>
+
+</body>
+</html>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produk;
 use App\Models\Kategori;
 use App\Models\Product;
 use App\Models\Toko;
@@ -11,70 +10,112 @@ use Illuminate\Support\Facades\Auth;
 
 class MemberProductController extends Controller
 {
-    // TAMPIL PRODUK MILIK MEMBER
-    public function index()
+    // ==============================
+    // CEK TOKO MILIK MEMBER
+    // ==============================
+    private function findMemberToko($toko_id)
     {
-        $produk = Product::where('user_id', Auth::id())->get();
-        return view('member.produk.produk', compact('produk'));
+        return Toko::where('id', $toko_id)
+                    ->where('user_id', Auth::id())
+                    ->firstOrFail();
     }
 
-    // FORM TAMBAH PRODUK
-    public function create()
+    // ==============================
+    // LIST PRODUK TOKO MEMBER
+    // ==============================
+    public function index($toko_id)
     {
+        $toko = $this->findMemberToko($toko_id);
+
+        $produk = Product::where('toko_id', $toko->id)->get();
+
+        return view('member.produk.produk', compact('produk', 'toko'));
+    }
+
+    // ==============================
+    // FORM TAMBAH PRODUK
+    // ==============================
+    public function create($toko_id)
+    {
+        $toko = $this->findMemberToko($toko_id);
         $kategori = Kategori::all();
-        $toko = Toko::all(); // toko dari admin
 
         return view('member.produk.create', compact('kategori', 'toko'));
     }
 
+    // ==============================
     // SIMPAN PRODUK
-    public function store(Request $request)
+    // ==============================
+    public function store(Request $request, $toko_id)
     {
+        $toko = $this->findMemberToko($toko_id);
+
         $request->validate([
-            'nama'      => 'required',
-            'harga'     => 'required|numeric',
+            'nama'        => 'required',
+            'harga'       => 'required|numeric',
             'kategori_id' => 'required',
-            'toko_id'     => 'required',
         ]);
 
         Product::create([
-            'nama' => $request->nama,
-            'harga' => $request->harga,
+            'nama'        => $request->nama,     // kolom benar
+            'harga'       => $request->harga,    // kolom benar
             'kategori_id' => $request->kategori_id,
-            'toko_id' => $request->toko_id,
-            'user_id' => Auth::id(), // produk milik member
+            'toko_id'     => $toko->id,
+            'user_id'     => Auth::id(),
         ]);
 
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route('member.produk.index', $toko->id)
+                         ->with('success', 'Produk berhasil ditambahkan');
     }
 
+    // ==============================
     // FORM EDIT PRODUK
-    public function edit($id)
+    // ==============================
+    public function edit($toko_id, $id)
     {
-        $produk = Product::where('user_id', Auth::id())->findOrFail($id);
+        $toko = $this->findMemberToko($toko_id);
 
+        $produk = Product::where('toko_id', $toko->id)->findOrFail($id);
         $kategori = Kategori::all();
-        $toko = Toko::all();
 
         return view('member.produk.edit', compact('produk', 'kategori', 'toko'));
     }
 
+    // ==============================
     // UPDATE PRODUK
-    public function update(Request $request, $id)
+    // ==============================
+    public function update(Request $request, $toko_id, $id)
     {
-        $produk = Product::where('user_id', Auth::id())->findOrFail($id);
+        $toko = $this->findMemberToko($toko_id);
 
-        $produk->update($request->all());
+        $produk = Product::where('toko_id', $toko->id)->findOrFail($id);
 
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil diupdate');
+        $request->validate([
+            'nama'        => 'required',
+            'harga'       => 'required|numeric',
+            'kategori_id' => 'required',
+        ]);
+
+       $produk->update([
+    'nama' => $request->nama,
+    'harga' => $request->harga,
+    'kategori_id' => $request->kategori_id,
+]);
+
+
+       return redirect()->route('member.produk.index', $toko)
+                 ->with('success', 'Produk berhasil diupdate!');
+
     }
 
-    // HAPUS PRODUK
-    public function destroy($id)
+    public function destroy($toko_id, $id)
     {
-        $produk = Product::where('user_id', Auth::id())->findOrFail($id);
+        $toko = $this->findMemberToko($toko_id);
+
+        $produk = Product::where('toko_id', $toko->id)->findOrFail($id);
         $produk->delete();
 
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus');
+        return redirect()->route('member.produk.index', $toko->id)
+                         ->with('success', 'Produk berhasil dihapus');
     }
 }

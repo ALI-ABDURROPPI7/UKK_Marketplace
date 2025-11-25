@@ -1,38 +1,105 @@
-@extends('layout')
+@extends('admin.sidebar')
+
+@section('title','Edit Toko')
 
 @section('content')
-<h2>Edit Toko</h2>
 
-<form action="{{ route('toko.update', $toko->id) }}"
-      method="POST"
-      enctype="multipart/form-data"
-      style="max-width:500px; margin-top:20px;">
+<style>
 
-    @csrf
-    @method('PUT')
+    .card-box {
+        max-width: 650px;
+        margin: 0 auto;
+        margin-top: 20px;
+        background:white;
+        border-radius:12px;
+        padding:25px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    }
 
-    <label>Nama Toko</label>
-    <input type="text" name="nama_toko" value="{{ $toko->nama_toko }}" class="form-control" required>
+    .card-box h2 {
+        margin-bottom:20px;
+        font-weight:700;
+        color:#1e40af;
+        font-size:24px;
+        text-align:center;
+    }
 
-    <label>Alamat</label>
-    <input type="text" name="alamat" value="{{ $toko->alamat }}" class="form-control" required>
+    .form-control {
+        width:100%;
+        padding:10px;
+        border:1px solid #cbd5e1;
+        border-radius:6px;
+        margin-bottom:12px;
+    }
 
-    <label>Kontak</label>
-    <input type="text" name="kontak" value="{{ $toko->kontak }}" class="form-control" required>
+    label {
+        font-weight:600;
+        color:#475569;
+    }
 
-    <label>Deskripsi</label>
-    <textarea name="deskripsi" class="form-control" required>{{ $toko->deskripsi }}</textarea>
+    .btn-submit {
+        margin-top:15px;
+        width:100%;
+        background:#1e40af;
+        border:none;
+        padding:11px;
+        border-radius:8px;
+        color:white;
+        font-weight:700;
+        font-size:16px;
+        cursor:pointer;
+        transition: .2s;
+    }
 
-    <label>Foto Toko</label><br>
-    @if($toko->foto)
-        <img src="{{ asset('foto_toko/' . $toko->foto) }}" width="80" style="margin-bottom:10px;">
-    @endif
-    <input type="file" name="foto" class="form-control">
+    .btn-submit:hover {
+        background:#16318f;
+    }
 
-    <button type="submit"
-            style="margin-top:15px; padding:8px 14px; background:#1e88e5; color:white; border:none; border-radius:6px;">
-        Simpan Perubahan
-    </button>
+</style>
 
-</form>
+
+<div class="card-box">
+
+    <h2>Edit Toko</h2>
+
+    <form action="{{ route('toko.update', $toko->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+
+        <label>Nama Toko</label>
+        <input type="text" name="nama_toko" value="{{ $toko->nama_toko }}" class="form-control" required>
+
+        <label>Alamat</label>
+        <input type="text" name="alamat" value="{{ $toko->alamat }}" class="form-control" required>
+
+        <label>Kontak</label>
+        <input type="text" name="kontak" value="{{ $toko->kontak }}" class="form-control" required>
+
+        <label>Deskripsi</label>
+        <textarea name="deskripsi" rows="4" class="form-control" required>{{ $toko->deskripsi }}</textarea>
+
+        <label>Pemilik Toko</label>
+        <select name="user_id" class="form-control" required>
+            <option value="">-- Pilih Pemilik --</option>
+            @foreach($users as $user)
+                <option value="{{ $user->id }}" {{ $toko->user_id==$user->id?'selected':'' }}>
+                    {{ $user->name }}
+                </option>
+            @endforeach
+        </select>
+
+        <label>Foto Toko</label><br>
+
+        @if($toko->foto)
+            <img src="{{ asset('foto_toko/'.$toko->foto) }}" width="110" style="margin-bottom:12px; border-radius:6px;">
+        @endif
+
+        <input type="file" name="foto" class="form-control">
+
+        <button type="submit" class="btn-submit">Simpan Perubahan</button>
+
+    </form>
+
+</div>
+
 @endsection
