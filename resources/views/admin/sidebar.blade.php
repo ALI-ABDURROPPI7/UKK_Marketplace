@@ -125,7 +125,7 @@
     <a href="/toko"><i class="fa-solid fa-store"></i> Toko</a>
     <a href="/admin/produk"><i class="fa-solid fa-box"></i> Produk</a>
     <a href="/admin/user"><i class="fa-solid fa-user"></i> User</a>
-    <a href="/kategori"><i class="fa-solid fa-layer-group"></i> Kategori</a>
+    <a href="/kategori-index"><i class="fa-solid fa-layer-group"></i> Kategori</a>
 
     <form action="{{ route('logout') }}" method="POST">
         @csrf

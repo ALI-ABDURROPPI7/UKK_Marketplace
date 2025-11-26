@@ -6,31 +6,33 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $guarded = [];
+    protected $table = 'products';
 
-    public function kategori()
-    {
+    protected $fillable = [
+        'nama',
+        'harga',
+        'kategori_id',
+        'toko_id',
+        'user_id',
+        'tanggal_upload',
+    ];
+
+    public function kategori(){
         return $this->belongsTo(Kategori::class);
     }
 
-
-    public function toko()
-    {
+    public function toko(){
         return $this->belongsTo(Toko::class);
     }
 
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo(User::class);
     }
-    public function tokos()
+
+public function gambarProduk()
 {
-    return $this->belongsTo(Toko::class);
+    return $this->hasMany(GambarProduk::class, 'products_id');
 }
 
-    public function gambarProduk()
-    {
-        return $this->belongsTo(GambarProduk::class);
-    }
 
 }

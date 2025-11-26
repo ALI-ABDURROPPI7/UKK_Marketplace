@@ -46,27 +46,27 @@ class MemberProductController extends Controller
     // ==============================
     // SIMPAN PRODUK
     // ==============================
-    public function store(Request $request, $toko_id)
-    {
-        $toko = $this->findMemberToko($toko_id);
+    // public function store(Request $request, $toko_id)
+    // {
+    //     $toko = $this->findMemberToko($toko_id);
 
-        $request->validate([
-            'nama'        => 'required',
-            'harga'       => 'required|numeric',
-            'kategori_id' => 'required',
-        ]);
+    //     $request->validate([
+    //         'nama'        => 'required',
+    //         'harga'       => 'required|numeric',
+    //         'kategori_id' => 'required',
+    //     ]);
 
-        Product::create([
-            'nama'        => $request->nama,     // kolom benar
-            'harga'       => $request->harga,    // kolom benar
-            'kategori_id' => $request->kategori_id,
-            'toko_id'     => $toko->id,
-            'user_id'     => Auth::id(),
-        ]);
+    //     Product::create([
+    //         'nama'        => $request->nama,     // kolom benar
+    //         'harga'       => $request->harga,    // kolom benar
+    //         'kategori_id' => $request->kategori_id,
+    //         'toko_id'     => $toko->id,
+    //         'user_id'     => Auth::id(),
+    //     ]);
 
-        return redirect()->route('member.produk.index', $toko->id)
-                         ->with('success', 'Produk berhasil ditambahkan');
-    }
+    //     return redirect()->route('member.produk.index', $toko->id)
+    //                      ->with('success', 'Produk berhasil ditambahkan');
+    // }
 
     // ==============================
     // FORM EDIT PRODUK

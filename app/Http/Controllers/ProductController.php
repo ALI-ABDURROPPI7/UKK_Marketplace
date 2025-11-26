@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GambarProduk;
 use App\Models\kategori;
 use App\Models\Product;
-use App\Models\Toko;
+use App\Models\Toko;;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -35,25 +38,55 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+public function store(Request $request, $toko_id)
     {
-        //
         $request->validate([
-            'nama' => 'required',
-            'harga' => 'required|numeric',
-            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nama'        => 'required',
+            'harga'       => 'required|numeric',
+            'kategori_id' => 'required',
+            'gambar.*'    => 'image|max:4096'
         ]);
 
-        $path = $request->file('gambar')?->store('produk', 'public');
+        // Ambil toko milik member
+        $toko = Auth::user()->toko;
 
-        Product::create([
-            'nama' => $request->nama,
-            'harga' => $request->harga,
-            'foto' => $path,
+        if (!$toko) {
+            return back()->with('error', 'Anda belum memiliki toko.');
+        }
+
+        // Simpan produk
+        $produk = Product::create([
+            'nama'         => $request->nama,
+            'harga'        => $request->harga,
+            'kategori_id'  => $request->kategori_id,
+            'toko_id'      => $toko->id,
+            'user_id'      => Auth::id(), // WAJIB ADA
         ]);
 
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan!');
+        // Simpan gambar ke storage dan DB
+        if ($request->hasFile('gambar')) {
+            foreach ($request->file('gambar') as $file) {
+
+                $namaFile = time() . rand() . '.' . $file->extension();
+
+                // simpan fisik file ke storage/public/produk
+                $file->storeAs('produk', $namaFile, 'public');
+
+                // simpan record ke database
+                GambarProduk::create([
+                    'products_id' => $produk->id,
+                    'nama_gambar' => $namaFile,
+                ]);
+            }
+        }
+
+        return redirect()->route('member.produk.index', $toko->id)
+                         ->with('success', 'Produk berhasil ditambahkan!');
     }
+
+
+
+
 
     /**
      * Display the specified resource.

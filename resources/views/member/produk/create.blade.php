@@ -19,7 +19,7 @@
     </div>
 @endif
 
-<form action="{{ route('member.produk.store', $toko->id) }}"
+<form action="{{ route('member.produk.str', $toko->id) }}"
       method="POST"
       enctype="multipart/form-data">
 
@@ -61,8 +61,8 @@
 
     {{-- FOTO PRODUK --}}
     <label>Foto Produk</label><br>
-    <input type="file" name="foto"
-           style="width:100%; padding:10px; margin-bottom:15px;">
+<input type="file" name="gambar[]" multiple>
+
     @error('foto')
         <div style="color:red; margin-bottom:15px;">{{ $message }}</div>
     @enderror

@@ -50,8 +50,8 @@ Route::middleware('member')->group(function () {
     Route::get('/member/produk/{toko}/create', [MemberProductController::class, 'create'])
         ->name('member.produk.create');
 
-    Route::post('/member/produk/{toko}', [MemberProductController::class, 'store'])
-        ->name('member.produk.store');
+    Route::post('/member/produk/{toko}', [ProductController::class, 'store'])
+        ->name('member.produk.str');
 
     Route::get('/member/produk/{toko}/{id}/edit', [MemberProductController::class, 'edit'])
         ->name('member.produk.edit');
@@ -82,7 +82,11 @@ Route::middleware('admin')->group(function () {
 
     Route::resource('toko', TokoController::class);
 
-    Route::resource('kategori', KategoriController::class);
+    Route::get('/kategori-index', [KategoriController::class, 'index'])->name('kategori.index');
+    Route::get('/kategori', [KategoriController::class, 'create'])->name('kategori.create');
+    Route::get('/kategori-edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+    Route::get('/kategori-destroy/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+
 
     Route::get('/produk/{id}', [HomeController::class, 'detail'])->name('produk.detail');
 
@@ -100,6 +104,7 @@ Route::middleware('admin')->group(function () {
         Route::get('/admin/user', [UserController::class, 'index'])->name('admin.user.index');
         Route::get('/admin/user/create', [UserController::class, 'create'])->name('admin.user.create');
         Route::post('/admin/user', [UserController::class, 'store'])->name('admin.user.store');
+        Route::post('/admin/kategori', [KategoriController::class, 'store'])->name('admin.kategori.store');
         Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('admin.user.edit');
         Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('admin.user.update');
         Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
