@@ -10,6 +10,7 @@
         <th>No</th>
         <th>Nama</th>
         <th>Harga</th>
+        <th>Gambar</th>
         <th>Aksi</th>
     </tr>
 
@@ -18,6 +19,15 @@
         <td>{{ $loop->iteration }}</td>
         <td>{{ $p->nama }}</td>
         <td>{{ $p->harga }}</td>
+        <td>
+            @if($p->foto)
+                    <img src="{{ asset('storage/'.$p->foto) }}"
+                         width="60" height="60"
+                         style="object-fit:cover; border-radius:8px;">
+                @else
+                    <span style="color:#777;">No Image</span>
+                @endif
+        </td>
 
         <td>
             <form action="{{ route('admin.produk.delete',$p->id) }}" method="POST">

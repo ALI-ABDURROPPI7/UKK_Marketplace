@@ -33,6 +33,6 @@ class MemberAuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('member.login');
+        return redirect()->route('login');
     }
 }

@@ -71,12 +71,12 @@ Route::middleware('member')->group(function () {
 Route::middleware('admin')->group(function () {
 
     // Dashboard Admin
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    
 
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
         ->name('admin.dashboard');
+
+
 
 
 
@@ -85,7 +85,8 @@ Route::middleware('admin')->group(function () {
     Route::get('/kategori-index', [KategoriController::class, 'index'])->name('kategori.index');
     Route::get('/kategori', [KategoriController::class, 'create'])->name('kategori.create');
     Route::get('/kategori-edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
-    Route::get('/kategori-destroy/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+    Route::delete('/kategori-destroy/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+    Route::put('/kategori/update/{id}', [KategoriController::class,'update'])->name('kategori.update');
 
 
     Route::get('/produk/{id}', [HomeController::class, 'detail'])->name('produk.detail');

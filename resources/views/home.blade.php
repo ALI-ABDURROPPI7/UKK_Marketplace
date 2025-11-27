@@ -277,7 +277,6 @@
 
     </div>
 
-    <!-- FOOTER -->
     <footer>
         <div class="row">
 

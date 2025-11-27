@@ -92,7 +92,7 @@
 
 <div class="sidebar">
 
-    <h2>Member Panel</h2>
+    <h2>Member </h2>
 
     <a href="{{ route('member.index') }}">
         <i class="fa-solid fa-gauge"></i> Dashboard

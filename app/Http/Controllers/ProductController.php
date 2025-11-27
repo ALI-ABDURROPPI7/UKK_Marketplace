@@ -115,12 +115,15 @@ public function store(Request $request, $toko_id)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
-       Product::where('id', $product)->delete();
+        $produk = Product::findOrFail($id);
+        $produk->delete();
+
         return redirect()->route('admin.produk.index')->with('success','Produk berhasil dihapus!');
     }
+
+
     public function product(){
         $data['produk']=Product::all();
     return view('admin.produk.produk',$data);

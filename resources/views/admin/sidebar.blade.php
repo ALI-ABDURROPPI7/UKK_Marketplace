@@ -119,7 +119,7 @@
 <button class="menu-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
 
 <div class="sidebar" id="sidebar">
-    <h2>Admin Panel</h2>
+    <h2>Admin </h2>
 
     <a href="/admin/dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a>
     <a href="/toko"><i class="fa-solid fa-store"></i> Toko</a>
